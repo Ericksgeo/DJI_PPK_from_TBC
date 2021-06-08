@@ -1,0 +1,26 @@
+$rootFolder = '\\peumo\04.- POST-PROCESO\104-COLLAHUASI\5-2021\4-PUERTO PATACHE_FORESTAL_2021\4-PROCESO\FOTOGRAMETRIA'
+(Get-ChildItem -Path $rootFolder -Filter '*' -File -Recurse) | 
+    Where-Object { $_.Name -notmatch "^$($_.Directory.Name)_" } |
+    Rename-Item -NewName { '{0}_{1}' -f $_.Directory.Name, $_.Name }
+
+
+Get-Content *.csv| Add-Content output.csv
+
+
+
+
+$rootFolder = '\\peumo\04.- POST-PROCESO\129-POLPAICO\1-2021\1-TEST\2-DATOS_DE_LEVANTAMIENTO\P1'
+Get-ChildItem -Path $rootFolder -Recurse |`
+foreach{
+$Item = $_
+$Type = $_.Extension
+$Path = $_.FullName
+$Folder = $_.PSIsContainer
+$Age = $_.CreationTime
+
+$Path | Select-Object `
+    @{n="Name";e={$Item}},`
+    @{n="Created";e={$Age}},`
+    @{n="filePath";e={$Path}},`
+    @{n="Extension";e={if($Folder){"Folder"}else{$Type}}}`
+}| Export-Csv $rootFolder\Results_V05.csv -NoTypeInformation 
