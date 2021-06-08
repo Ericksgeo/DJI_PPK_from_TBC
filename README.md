@@ -3,7 +3,7 @@
 Code created for optimising the tedious PPK processing using the TBC trajectory solutions. 
 I know that RTKLIB is a better option (sometimes), but if you're a surveyor and work with TBC every day to adjust GNSS solutions and coordinates stuff, this could improve your workflow.
 
-Interpolation formulas are approximated using the latitude location.
+Interpolation formulas are approximated using the latitude location From AEROTAS xls file. (www.aerotas.com)
 It is currently set to WGS84 UTM19S (Chile)
 
 
